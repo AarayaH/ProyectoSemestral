@@ -8,4 +8,35 @@ use Illuminate\Database\Eloquent\Model;
 class CentroDistrubucion extends Model
 {
     use HasFactory;
+
+    protected $table = 'centro_distrubucions'; 
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [ 
+        "cd_codigo",
+        "cd_direccion",
+        "cd_telefono"
+    ];
+
+    public function stock() 
+    {
+        return $this->hasMany(Stock::class);
+    }
+
+    public function egreso() 
+    {
+        return $this->hasMany(Egreso::class);
+    }
+
+    public function ingreso() 
+    {
+        return $this->hasMany(Ingreso::class);
+    }
+
+    public function Traspaso() 
+    {
+        return $this->hasMany(Traspaso::class);
+    }
+
 }
