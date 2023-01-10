@@ -1,4 +1,5 @@
 <?php
+namespace App\Http\Repositories;
 
 use App\Models\Medicamento;
 use App\Models\CentroDistrubucion;
@@ -16,6 +17,7 @@ class IngresoRepositorio
             $detalle->id_medicamento = $medicamento->id_medicamento;
             $detalle->cantidad = $medicamento->cantidad;
             $detalle->id_ingreso = $ingreso->id;
+            $detalle->lote = $request->lote;
             $detalle->save();
     
             $stock_actual =Stock::where([
@@ -24,7 +26,12 @@ class IngresoRepositorio
             ])->first();
     
             if(is_null($stock_actual)){
-                //creo
+                //todo crear stock
+                $stock = new Stock();
+                $stock->scd_id_medicamento = $medicamento->id_medicamento;
+                $stock->scd_centro_distrubucion = $ingreso->centro_dist_id;
+                $stock->scd_lote = $detalle->lote;//??
+                $stock->save();
             }else{
                 $stock_actual = Stock::where([
                     ['id_medicamento', $medicamento->id_medicamento],

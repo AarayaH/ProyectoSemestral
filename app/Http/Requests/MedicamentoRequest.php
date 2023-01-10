@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CrearIngresoRequest extends FormRequest
+class MedicamentoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CrearIngresoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,8 @@ class CrearIngresoRequest extends FormRequest
     public function rules()
     {
         return [
-            "ingr_fecha" => "required",
-            "med_nombre" => "required|exists:med_nombre",
-            "scd_lote" => "required|exists:scd_lote",
+            "med_nombre" => "required|unique:medicamentos",
+            "med_compuesto" => "required",
         ];
     }
 
